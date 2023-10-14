@@ -1,5 +1,3 @@
-> ✨ Support me: [wallet address](https://elatel.ir).
-
 # AutoCopyUSB
 >  😈 When a USB Drive (like flash drive) is connected to the computer, This program automatically copies all its contents to your computer in the background.
 
