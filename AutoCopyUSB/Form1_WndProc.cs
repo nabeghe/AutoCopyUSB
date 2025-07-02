@@ -14,6 +14,7 @@ namespace AutoCopyUSB
                     Stop();
                 }
             }
+
             base.WndProc(ref m);
         }
     }
