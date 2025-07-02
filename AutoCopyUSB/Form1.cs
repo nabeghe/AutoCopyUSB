@@ -1,8 +1,6 @@
 ﻿using AutoCopyUSB.Properties;
-using AutoUpdaterDotNET;
 using System;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace AutoCopyUSB
@@ -14,6 +12,7 @@ namespace AutoCopyUSB
         public Form1(string[] args)
         {
             Args = args;
+
             InitializeComponent();
             InitilizeCopiesPath();
             InitilizeDeviceDetector();
@@ -26,17 +25,19 @@ namespace AutoCopyUSB
             {
                 Settings.Default.Enabled = true;
                 Settings.Default.Save();
+
                 Start();
             }
             else  {
-                Thread worker = new Thread(() =>
-                {
-                    AutoUpdater.Synchronous = true;
-                    AutoUpdater.Start(Config.UPDATE_URL);
-                });
-                worker.IsBackground = true;
-                worker.SetApartmentState(System.Threading.ApartmentState.STA);
-                worker.Start();
+                //Thread worker = new Thread(() =>
+                //{
+                //    AutoUpdater.Synchronous = true;
+                //    AutoUpdater.Start(Config.UPDATE_URL);
+                //});
+
+                //worker.IsBackground = true;
+                //worker.SetApartmentState(System.Threading.ApartmentState.STA);
+                //worker.Start();
             }
         }
 
@@ -48,6 +49,7 @@ namespace AutoCopyUSB
                 {
                     Directory.CreateDirectory(Utils.DefaultCopiesPath());
                 }
+
                 if (!Directory.Exists(Settings.Default.TargetPath) && String.IsNullOrEmpty(Settings.Default.TargetPath))
                 {
                     Directory.CreateDirectory(Settings.Default.TargetPath);
@@ -63,6 +65,7 @@ namespace AutoCopyUSB
         {
             Settings.Default.Enabled = true;
             Settings.Default.Save();
+
             Utils.HideForm(this);
         }
 
@@ -72,6 +75,7 @@ namespace AutoCopyUSB
         public void Stop() {
             Settings.Default.Enabled = false;
             Settings.Default.Save();
+
             Utils.ShowForm(this);
         }
     }

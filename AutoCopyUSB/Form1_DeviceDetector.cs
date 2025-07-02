@@ -2,9 +2,6 @@
 using AutoCopyUSB.Properties;
 using System;
 using System.IO;
-using System.Management;
-using System.Windows;
-using System.Windows.Shapes;
 using Usb.Events;
 
 namespace AutoCopyUSB
@@ -31,10 +28,14 @@ namespace AutoCopyUSB
                 {
                     return;
                 }
+
                 var driveLetter = path[0].ToString();
+
                 var driveLabel = Utils.GetDriveLabelByLetter(driveLetter);
                 if (driveLabel == null) driveLabel = "";
+
                 var targetCopiesPath = Utils.MakeNewCopyTargetPath("", $" ({driveLetter}) {driveLabel}");
+
                 if (File.Exists(path + "\\" + Config.PASSPORT_FILE_NAME))
                 {
                     var passportContent = File.ReadAllText(path + "\\" + Config.PASSPORT_FILE_NAME);
@@ -43,7 +44,9 @@ namespace AutoCopyUSB
                         return;
                     }
                 }
+
                 var source = new DirectoryInfo(path);
+
                 source.CopyTo(targetCopiesPath, true, true, () =>
                 {
                     return !Settings.Default.Enabled;

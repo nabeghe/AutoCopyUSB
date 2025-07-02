@@ -10,6 +10,7 @@ namespace AutoCopyUSB
         public static void SetStartupEnabled(bool enabled)
         {
             RegistryKey rk = Registry.CurrentUser.OpenSubKey(STARTUP_KEY, true);
+
             if (enabled)
             {
                 rk.SetValue(Utils.ApplicationName(), Application.ExecutablePath.ToString() + " -s");
@@ -23,7 +24,9 @@ namespace AutoCopyUSB
         public static bool GetStartupEnabled()
         {
             RegistryKey rk = Registry.CurrentUser.OpenSubKey(STARTUP_KEY, true);
+            
             var value = rk.GetValue(Utils.ApplicationName());
+
             return value != null && value.ToString().Equals(Application.ExecutablePath.ToString() + " -s");
         }
     }
